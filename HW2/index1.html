@@ -15,18 +15,19 @@
   <body>
 
     <div id="wrapper">
-      <h1>Retail sales across regions</h1>
       <!-- 
       ADD two div containers, one for each chart.
       Make sure you adjust the CSS so that the end result looks
       similar to expectedresult.png. The two charts should be side-by-side. 
       If you are having issues make sure your browser is not zoomed in past 100%.
       -->
-      <div id = "FirstChart">
-      </div>
-      <div id = "SecondChart">
-      </div>
-      <div id = "ThirdChart">
+      <div id = "MasterChart">
+        <div id = "FirstChart">
+        </div>
+        <div id = "SecondChart">
+        </div>
+        <div id = "ThirdChart">
+        </div>
       </div>
       <div id = "FourthChart">
       </div>
@@ -487,13 +488,10 @@
         data: target_texas
     })
       
-      /*console.log(traderjoes)
-      console.log(traderjoes_oregon)
-      console.log(traderjoes_texas)*/
-
       chartOne = jQuery.extend(true, {}, options, chartOne);
       chartTwo = jQuery.extend(true, {}, options, chartTwo);
       chartThree = jQuery.extend(true, {}, options, chartThree);
+      chartFour = jQuery.extend(true, {}, options, chartFour);
       
       var chart1 = new Highcharts.Chart(chartOne);
       var chart2 = new Highcharts.Chart(chartTwo);

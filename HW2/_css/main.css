@@ -83,11 +83,36 @@ p {
 You need to make the containers inline-blocks so that they will show up side-by-side in your browser.
 Also, add settings for the height, width, padding, margin, and border-radius so that the charts are similar to the expectedresult.png*/
 
-#FirstChart, #SecondChart, #ThirdChart {
+/*#FirstChart, #SecondChart, #ThirdChart {
     background-color: #eeeeee ;
     border-radius: 10px;
-    padding: 30px;
-    margin: 5px;
-    width: 45%; 
-    height: 290px; 
+    padding: 5px;
+    margin: 2px;
+    width: 30%; 
+    height: 290px;
+}
+
+#FourthChart {
+    background-color: #eeeeee ;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 2px; 
+    width: 30%; 
+    height: 870px;
+}*/
+
+#FirstChart, #SecondChart, #ThirdChart {
+    padding: 5px;
+    border-radius: 10px;
+    height: 270px;
+}
+
+#FourthChart {
+    padding: 5px;
+    border-radius: 10px;
+    height: 830px;
+}
+
+#MasterChart, #FourthChart {
+    display: inline-block;
 }
