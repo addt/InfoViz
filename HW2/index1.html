@@ -300,33 +300,7 @@
 
       });
 
-      // Chart One Data:
-      // http://www.highcharts.com/demo/bar-stacked
-      // "chartOne.series", which was declared in chartOne above, is going to be an array where each item is an object with 3 main keys: "name", "data", & "color":
-          // "name" = season name
-          // "data" = rain value for a season
-          // "color" = bar segment color
-
-      // We'll use a for loop to populate "chartOne.series"
-      /*for(var i = 0; i < rainBySeason.length; i++) {
-        
-        // We'll create a placeholder object and pull the required value for each key from "seasons" variable, "rainBySeason" variable, & "colors()" function.
-        // There is a strange quirk with Highcharts that plots the values for each bar in reversed order. To fix this, we set the following keys and values in the loop:
-          // index: rainBySeason.length - 1 - i,
-          // legendIndex: i
-        var chartOneData = {
-          name: seasons[i],
-          data: rainBySeason[i],
-          color: colors(i),
-          index: rainBySeason.length - 1 - i,
-          legendIndex: i
-        };
-        
-        // ADD CODE HERE to push the chartOneData object to "chartOne.series":
-        chartOne.series.push(chartOneData)
-      };*/
-        //traderjoes = [100, 300, 350, 250, 200]
-
+      
         chartOne.series.push({
         name: 'Walmart',
         data: walmart
@@ -415,29 +389,11 @@
         name: 'Target',
         data: target_texas
     })
-
-        /*console.log(chartOne.series[0])
-        console.log(chartOne.series[1])
-        console.log(chartOne.series[2])
-        console.log(chartOne.series[3])
-        console.log(chartOne.series[4])
-        console.log(chartOne.series[5])
-        console.log(chartOne.series[6])*/
-
-
-
       
       chartOne = jQuery.extend(true, {}, options, chartOne);
       chartTwo = jQuery.extend(true, {}, options, chartTwo);
       chartThree = jQuery.extend(true, {}, options, chartThree);
-      /*chartTwo = jQuery.extend(true, {}, options, chartTwo);
-      chartThree = jQuery.extend(true, {}, options, chartThree);*/
-
-      // Now we need to draw both charts by creating new "Highcharts" objects:
-
-      // ADD CODE HERE to declare a variable for chart 1 and use the Highcharts.Chart constructor to create your chart using the chart variable we created using jQuery.extend above.
-
-      // ADD CODE HERE to declare a variable for chart 2 using the chart constructor and the chart object created above for chart 2
+      
       var chart1 = new Highcharts.Chart(chartOne);
       var chart2 = new Highcharts.Chart(chartTwo);
       var chart3 = new Highcharts.Chart(chartThree);
