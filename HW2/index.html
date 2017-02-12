@@ -32,6 +32,8 @@
       </div>
       <div id = "ThirdChart">
       </div>
+      <div id = "FourthChart">
+      </div>
 
 
     </div>
@@ -152,24 +154,40 @@
       title: {
         text: "Annual Rainfall"
       },
-      series: [] // The series data for this chart is the last column of data in the CSV - the "Annual" column.
+      series: [] 
     };
 
     var chartThree = {
       chart: {
-        // ADD CODE HERE to fill in the renderTo property with the div id for your second chart container
-        // ADD CODE HERE to fill in the type property to make a line chart
+        
         renderTo: ThirdChart,
         type: "line"
       },
       title: {
         text: "Annual Rainfall"
       },
+      series: [] 
+    };
+
+    var chartFour = {
+      chart: {
+        renderTo: "chart2",
+        type: "line"
+      },
+      title: {
+        text: "Customer Traffic and Transaction Volume"
+      },
+      yAxis: {
+            title: {
+                text: 'volumes',
+                min: 0,
+                max: 600,
+                tickInterval: 25
+            }
+        },
       series: [] // The series data for this chart is the last column of data in the CSV - the "Annual" column.
     };
 
-    // Here we are declaring a function to return color for each season.
-    // This allows us to choose the colors that will be used in the charts.
     function colors(i) {
       switch(i) {
         case 0:

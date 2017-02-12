@@ -28,6 +28,8 @@
       </div>
       <div id = "ThirdChart">
       </div>
+      <div id = "FourthChart">
+      </div>
 
 
     </div>
@@ -174,12 +176,36 @@
       series: [] // This series data is pulled through a for loop that loops through the CSV.
     };
 
+    var chartFour = {
+      chart: {
+        renderTo: "FourthChart",
+        type: "line"
+      },
+      title: {
+        text: "Customer Traffic and Transaction Volume"
+      },
+      yAxis: {
+            title: {
+                text: 'volumes',
+                min: 0,
+                max: 600,
+                tickInterval: 25
+            }
+        },
+      series: [] // The series data for this chart is the last column of data in the CSV - the "Annual" column.
+    };
+
     
     $.get("_data/VATW datasets 2017 - Supermarkets.csv", function (data) {
 
       // We'll split the CSV by line ("\n")
       var lines = data.split('\n');
 
+      var customers = []
+      var traffic = []
+      var labels = []
+      var retailers = []
+      var years = []
             
       walmart = []
       safeway = []
@@ -216,7 +242,15 @@
         // If it's the header...
         if (lineNo == 0) {
          
-        } else {
+        } else if (lineNo < 106) {
+
+          for (var i = 1; i <= 5; i++) {
+              options.xAxis.categories.push(items[i]);
+              labels.push(items[i]); 
+              console.log("labels")
+              console.log(labels)
+
+          }
           
           var re = new RegExp('Trader.*');
 
@@ -300,7 +334,66 @@
             }
           }
 
-        };
+        } else if (lineNo == 106) {
+        console.log("ok work")
+
+          for (var i = 1; i <= 5; i++) {
+              options.xAxis.categories.push(items[i]);
+              labels.push(items[i]); 
+              console.log("labels")
+              console.log(labels)
+          }
+        } else {
+            var seriesData = {
+            name: "",
+            data: [],
+            dashStyle :"solid",
+            color:""
+          };
+          seriesData.name = items[0];
+
+          if (seriesData.name.includes("Transaction")){
+            console.log("seriesdata Name")
+            console.log(seriesData.name) 
+            seriesData.dashStyle = "dot"
+          }
+
+          if (seriesData.name.includes("Walmart")){
+            seriesData.color = "#0000ff"
+
+          }
+          if (seriesData.name.includes("Target")){
+            seriesData.color = "#ff0000"
+
+          }
+          if (seriesData.name.includes("Costco")){
+            seriesData.color = "#A9A9A9"
+
+          }
+          if (seriesData.name.includes("Kmart")){
+            seriesData.color = "#008B8B"
+
+          }
+          if (seriesData.name.includes("Whole")){
+            seriesData.color = "#006400"
+
+          }
+          if (seriesData.name.includes("Trader")){
+            seriesData.color = "#A52A2A"
+
+          }
+          if (seriesData.name.includes("Safeway")){
+            seriesData.color = "#EE82EE"
+
+          }
+            
+            $.each(items, function (itemNo, item) {
+            if (itemNo != 0) {                 
+              seriesData.data.push(Number(item));
+             }
+          })
+          chartFour.series.push(seriesData);    
+        };;
 
       });
 
@@ -394,9 +487,9 @@
         data: target_texas
     })
       
-      console.log(traderjoes)
+      /*console.log(traderjoes)
       console.log(traderjoes_oregon)
-      console.log(traderjoes_texas)
+      console.log(traderjoes_texas)*/
 
       chartOne = jQuery.extend(true, {}, options, chartOne);
       chartTwo = jQuery.extend(true, {}, options, chartTwo);
@@ -405,6 +498,7 @@
       var chart1 = new Highcharts.Chart(chartOne);
       var chart2 = new Highcharts.Chart(chartTwo);
       var chart3 = new Highcharts.Chart(chartThree);
+      var chart4 = new Highcharts.Chart(chartFour);
 
     });
 
