@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <title>San Francisco Rainfall</title>
+
+      <!-- Remember to edit the CSS so that your result looks similar
+      to expectedresult.png -->
+      <link rel="stylesheet" href="_css/main.css">
+
+      <script src="_js/jquery-1.11.0.min.js"></script>
+      <script src="_js/highcharts.js"></script>
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <h1>Retail sales across regions</h1>
+      <!-- 
+      ADD two div containers, one for each chart.
+      Make sure you adjust the CSS so that the end result looks
+      similar to expectedresult.png. The two charts should be side-by-side. 
+      If you are having issues make sure your browser is not zoomed in past 100%.
+      -->
+      <div id = "FirstChart">
+      </div>
+      <div id = "SecondChart">
+      </div>
+      <div id = "ThirdChart">
+      </div>
+
+
+    </div>
+
+    <script>
+
+    // Here we are declaring a function using Highcharts.setOptions
+    // This configures global options that will apply for both charts.
+    // These options work like a style theme.
+    // http://www.highcharts.com/docs/getting-started/how-to-set-options#2
+    $(function () {
+      Highcharts.setOptions({
+        chart: {
+          style: {
+            fontFamily: "Helvetica,Arial,sans-serif"
+          }
+        },
+        legend: {
+          borderRadius: 0,
+          itemStyle: {
+            color: "#000000",
+            fontFamily: "Helvetica,Arial,sans-serif"
+          }
+        },
+        title: {
+          style: {
+            color: "#000000",
+            fontFamily: "Helvetica,Arial,sans-serif",
+            fontSize: "20px",
+            fontWeight: "bold"
+          }
+        },
+        tooltip: {
+          // ADD CODE HERE to set up the tooltip options.
+            // Hints: borderRadius, borderWidth, shadow
+            borderRadius: 4,
+            borderWidth: 2,
+            shadow: true
+          },
+          style: {
+            color: "#333333",
+            fontFamily: "Arial, sans-serif",
+            fontSize: "14px",
+            padding: "10px"
+        },
+        xAxis: {
+          labels: {
+            style: {
+              color: "#333333",
+              fontFamily: "Helvetica,Arial,sans-serif"
+            }
+          },
+        },
+        yAxis: {
+          labels: {
+            style: {
+              color: "#333333",
+              fontFamily: "Helvetica,Arial,sans-serif"
+            }
+          },
+          min: 0,
+          plotLines: [{
+            value: 0,
+            width: 1,
+            color: "#808080"
+          }],
+          title: {
+            style: {
+              color: "#333333",
+              fontFamily: "Helvetica,Arial,sans-serif"
+            },
+            text: ""
+          }
+        }
+      })
+    });
+
+    var options = {
+      // ADD CODE HERE to hold the xAxis categories
+      xAxis: {
+             categories: ['2011', '2012', '2013', '2014', '2015']
+        }
+    };
+
+    // Configure Chart One
+    // Chart One is a stacked bar chart depicting seasonal rainfall from 2000 to 2015.
+    var chartOne = {
+      chart: {
+        renderTo: FirstChart,
+      },
+      title: {
+        text: "California Revenues"
+      },
+       yAxis: {
+        title: {
+            text: 'Revenue in Millions($)'
+        }
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+      series: [] // This series data is pulled through a for loop that loops through the CSV.
+    };
+
+    var chartTwo = {
+      chart: {
+        renderTo: SecondChart,
+      },
+      title: {
+        text: "Oregon Revenues"
+      },
+       yAxis: {
+        title: {
+            text: 'Revenue in Millions($)'
+        }
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+      series: [] // This series data is pulled through a for loop that loops through the CSV.
+    };
+
+    var chartThree = {
+      chart: {
+        renderTo: ThirdChart,
+      },
+      title: {
+        text: "Texas Revenues"
+      },
+       yAxis: {
+        title: {
+            text: 'Revenue in Millions($)'
+        }
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+      series: [] // This series data is pulled through a for loop that loops through the CSV.
+    };
+
+    
+    $.get("_data/VATW datasets 2017 - Supermarkets.csv", function (data) {
+
+      // We'll split the CSV by line ("\n")
+      var lines = data.split('\n');
+
+            
+      walmart = []
+      safeway = []
+      cosctco = []
+      kmart = []
+      wholefoods = []
+      traderjoes = []
+      target = []
+
+      walmart_texas = []
+      safeway_texas = []
+      cosctco_texas = []
+      kmart_texas = []
+      wholefoods_texas = []
+      traderjoes_texas = []
+      target_texas = []
+
+      walmart_oregon = []
+      safeway_oregon = []
+      cosctco_oregon = []
+      kmart_oregon = []
+      wholefoods_oregon = []
+      traderjoes_oregon = []
+      target_oregon = []
+      
+      $.each(lines, function ( lineNo, line ) {    
+
+        var items = line.split(",");
+
+        // The first line of our file is the data's header row which we don't want to read as data.
+        // Instead, if the lineNo is 0, we want to add the values in the array to the seasons variable.
+        // Use an if statement to treat the first line of your CSV differently.
+        
+        // If it's the header...
+        if (lineNo == 0) {
+         
+        } else {
+          
+          if (items[0] == "Walmart") {
+            if (items[1] == "California") {
+            walmart.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            walmart_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            walmart_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Safeway") {
+            if (items[1] == "California") {
+            safeway.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            safeway_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            safeway_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Costco") {
+            if (items[1] == "California") {
+            cosctco.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            cosctco_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            cosctco_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Kmart") {
+            if (items[1] == "California") {
+            kmart.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            kmart_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            kmart_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Whole Foods") {
+            if (items[1] == "California") {
+            wholefoods.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            wholefoods_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            wholefoods_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Trader Joe\'s") {
+            if (items[1] == "California") {
+            traderjoes.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            traderjoes_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            traderjoes_texas.push(Number(items[5]))
+            }
+          }
+          if (items[0] == "Target") {
+            if (items[1] == "California") {
+            target.push(Number(items[5]))
+            }
+            if (items[1] == "Oregon") {
+            target_oregon.push(Number(items[5]))
+            }
+            if (items[1] == "Texas") {
+            target_texas.push(Number(items[5]))
+            }
+          }
+
+        };
+
+      });
+
+      // Chart One Data:
+      // http://www.highcharts.com/demo/bar-stacked
+      // "chartOne.series", which was declared in chartOne above, is going to be an array where each item is an object with 3 main keys: "name", "data", & "color":
+          // "name" = season name
+          // "data" = rain value for a season
+          // "color" = bar segment color
+
+      // We'll use a for loop to populate "chartOne.series"
+      /*for(var i = 0; i < rainBySeason.length; i++) {
+        
+        // We'll create a placeholder object and pull the required value for each key from "seasons" variable, "rainBySeason" variable, & "colors()" function.
+        // There is a strange quirk with Highcharts that plots the values for each bar in reversed order. To fix this, we set the following keys and values in the loop:
+          // index: rainBySeason.length - 1 - i,
+          // legendIndex: i
+        var chartOneData = {
+          name: seasons[i],
+          data: rainBySeason[i],
+          color: colors(i),
+          index: rainBySeason.length - 1 - i,
+          legendIndex: i
+        };
+        
+        // ADD CODE HERE to push the chartOneData object to "chartOne.series":
+        chartOne.series.push(chartOneData)
+      };*/
+        //traderjoes = [100, 300, 350, 250, 200]
+
+        chartOne.series.push({
+        name: 'Walmart',
+        data: walmart
+    })
+        chartOne.series.push({
+        name: 'Safeway',
+        data: safeway
+    })
+        chartOne.series.push({
+        name: 'Coscto',
+        data: cosctco
+    })
+        chartOne.series.push({
+        name: 'Kmart',
+        data: kmart
+    })
+        chartOne.series.push({
+        name: 'Whole Foods',
+        data: wholefoods
+    })
+        chartOne.series.push({
+        name: 'Trader Joe\'s',
+        data: traderjoes
+    })
+        chartOne.series.push({
+        name: 'Target',
+        data: target
+    })
+
+        // Second chart
+        chartTwo.series.push({
+        name: 'Walmart',
+        data: walmart_oregon
+    })
+        chartTwo.series.push({
+        name: 'Safeway',
+        data: safeway_oregon
+    })
+        chartTwo.series.push({
+        name: 'Coscto',
+        data: cosctco_oregon
+    })
+        chartTwo.series.push({
+        name: 'Kmart',
+        data: kmart_oregon
+    })
+        chartTwo.series.push({
+        name: 'Whole Foods',
+        data: wholefoods_oregon
+    })
+        chartTwo.series.push({
+        name: 'Trader Joe\'s',
+        data: traderjoes_oregon
+    })
+        chartTwo.series.push({
+        name: 'Target',
+        data: target_oregon
+    })
+
+        // Third Chart
+        chartThree.series.push({
+        name: 'Walmart',
+        data: walmart_texas
+    })
+        chartThree.series.push({
+        name: 'Safeway',
+        data: safeway_texas
+    })
+        chartThree.series.push({
+        name: 'Coscto',
+        data: cosctco_texas
+    })
+        chartThree.series.push({
+        name: 'Kmart',
+        data: kmart_texas
+    })
+        chartThree.series.push({
+        name: 'Whole Foods',
+        data: wholefoods_texas
+    })
+        chartThree.series.push({
+        name: 'Trader Joe\'s',
+        data: traderjoes_texas
+    })
+        chartThree.series.push({
+        name: 'Target',
+        data: target_texas
+    })
+
+        /*console.log(chartOne.series[0])
+        console.log(chartOne.series[1])
+        console.log(chartOne.series[2])
+        console.log(chartOne.series[3])
+        console.log(chartOne.series[4])
+        console.log(chartOne.series[5])
+        console.log(chartOne.series[6])*/
+
+
+
+      
+      chartOne = jQuery.extend(true, {}, options, chartOne);
+      chartTwo = jQuery.extend(true, {}, options, chartTwo);
+      chartThree = jQuery.extend(true, {}, options, chartThree);
+      /*chartTwo = jQuery.extend(true, {}, options, chartTwo);
+      chartThree = jQuery.extend(true, {}, options, chartThree);*/
+
+      // Now we need to draw both charts by creating new "Highcharts" objects:
+
+      // ADD CODE HERE to declare a variable for chart 1 and use the Highcharts.Chart constructor to create your chart using the chart variable we created using jQuery.extend above.
+
+      // ADD CODE HERE to declare a variable for chart 2 using the chart constructor and the chart object created above for chart 2
+      var chart1 = new Highcharts.Chart(chartOne);
+      var chart2 = new Highcharts.Chart(chartTwo);
+      var chart3 = new Highcharts.Chart(chartThree);
+
+    });
+
+
+    </script>
+
+  </body>
+
+</html>
