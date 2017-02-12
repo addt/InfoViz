@@ -218,6 +218,8 @@
          
         } else {
           
+          var re = new RegExp('Trader.*');
+
           if (items[0] == "Walmart") {
             if (items[1] == "California") {
             walmart.push(Number(items[5]))
@@ -273,7 +275,9 @@
             wholefoods_texas.push(Number(items[5]))
             }
           }
-          if (items[0] == "Trader Joe\'s") {
+          //if (items[0] == "Trader Joe’s") {
+          if (re.test(items[0])) {
+            console.log("trader")
             if (items[1] == "California") {
             traderjoes.push(Number(items[5]))
             }
@@ -390,6 +394,10 @@
         data: target_texas
     })
       
+      console.log(traderjoes)
+      console.log(traderjoes_oregon)
+      console.log(traderjoes_texas)
+
       chartOne = jQuery.extend(true, {}, options, chartOne);
       chartTwo = jQuery.extend(true, {}, options, chartTwo);
       chartThree = jQuery.extend(true, {}, options, chartThree);
