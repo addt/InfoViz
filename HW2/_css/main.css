@@ -90,29 +90,21 @@ Also, add settings for the height, width, padding, margin, and border-radius so 
     margin: 2px;
     width: 30%; 
     height: 290px;
-}
+} */
 
-#FourthChart {
-    background-color: #eeeeee ;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 2px; 
-    width: 30%; 
-    height: 870px;
-}*/
 
 #FirstChart, #SecondChart, #ThirdChart {
     padding: 5px;
-    border-radius: 10px;
-    height: 270px;
+    height: 190px;
+    width: 380px;
 }
 
 #FourthChart {
-    padding: 5px;
-    border-radius: 10px;
-    height: 830px;
+    height: 590px;
+    width: 380px;
 }
 
 #MasterChart, #FourthChart {
     display: inline-block;
 }
+
